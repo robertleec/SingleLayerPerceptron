@@ -21,7 +21,7 @@ namespace Perceptron {
         
     }
     
-    SingleLayerPerceptron::SingleLayerPerceptron(const SingleLayerPerceptron& rhs):learningRate(rhs.learningRate), weightVector(rhs.weightVector), biasVector(rhs.biasVector) {
+    SingleLayerPerceptron::SingleLayerPerceptron(const SingleLayerPerceptron& rhs):learningRate(rhs.learningRate), weightVector(rhs.weightVector), bias(rhs.bias) {
         
     }
     
@@ -35,7 +35,7 @@ namespace Perceptron {
         using std::swap;
         swap(this->learningRate, other.learningRate);
         swap(this->weightVector, other.weightVector);
-        swap(this->biasVector, other.biasVector);
+        swap(this->bias, other.bias);
     }
     
     void SingleLayerPerceptron::learn(const TrainData &trainData) {
@@ -69,22 +69,17 @@ namespace Perceptron {
             this->resetWeightVector(featureVector.size());
         }
         
-        if ((this->biasVector).size() != featureVector.size()) {
-            this->resetBiasVector(featureVector.size());
-        }
-        
         vector<FeatureType>::const_iterator featureIterator;
         vector<WeightType>::iterator weightIterator;
-        vector<BiasType>::iterator biasIterator;
         
-        for (featureIterator = featureVector.begin(), weightIterator = (this->weightVector).begin(), biasIterator = (this->biasVector).begin(); featureIterator != featureVector.end() && weightIterator != (this->weightVector).end() && biasIterator != (this->biasVector).end(); ++featureIterator, ++weightIterator, ++biasIterator) {
+        for (featureIterator = featureVector.begin(), weightIterator = (this->weightVector).begin(); featureIterator != featureVector.end() && weightIterator != (this->weightVector).end(); ++featureIterator, ++weightIterator) {
             
             if (outputCategory == true) {
                 *weightIterator += (*featureIterator) * (1) * (this->learningRate);
-                *biasIterator += (1) * (this->learningRate);
+                this->bias += (1) * (this->learningRate);
             } else {
                 *weightIterator += (*featureIterator) * (-1) * (this->learningRate);
-                *biasIterator += (-1) * (this->learningRate);
+                this->bias += (-1) * (this->learningRate);
             }
         }
     }
@@ -93,27 +88,28 @@ namespace Perceptron {
         this->weightVector = vector<WeightType>(size);
     }
     
-    void SingleLayerPerceptron::resetBiasVector(size_t size) {
-        this->biasVector = vector<BiasType>(size);
-    }
-    
     bool SingleLayerPerceptron::getClassifier(const vector<FeatureType>& features) {
         CategoryValueType categoryValue = 0;
         
         vector<FeatureType>::const_iterator featureIterator;
         vector<WeightType>::iterator weightIterator;
-        vector<BiasType>::iterator biasIterator;
         
-        for (featureIterator = features.begin(), weightIterator = (this->weightVector).begin(), biasIterator = (this->biasVector).begin(); featureIterator != features.end() && weightIterator != (this->weightVector).end() && biasIterator != (this->biasVector).end(); ++featureIterator, ++weightIterator, ++biasIterator) {
+        for (featureIterator = features.begin(), weightIterator = (this->weightVector).begin(); featureIterator != features.end() && weightIterator != (this->weightVector).end(); ++featureIterator, ++weightIterator) {
             
-            categoryValue += (*featureIterator) * (*weightIterator) + (*biasIterator);
+            categoryValue += (*featureIterator) * (*weightIterator);
         }
+        
+        categoryValue += this->bias;
         
         if (categoryValue > 0) {
             return true;
         }
         
         return false;
+    }
+    
+    BiasType SingleLayerPerceptron::getBias() {
+        return this->bias;
     }
 }
 

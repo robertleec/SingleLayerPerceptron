@@ -40,16 +40,7 @@ int main(int argc, char *argv[]) {
     
     cout << endl;
     
-    vector<BiasType> biasVector = singleLayerPerceptron.getBiasVector();
-    vector<BiasType>::iterator biasIterator;
-    
-    cout << "Bias:";
-    
-    for (biasIterator = biasVector.begin(); biasIterator != biasVector.end(); ++biasIterator) {
-        cout << " " << *biasIterator;
-    }
-    
-    cout << endl;
+    cout << "Bias:" << " " << singleLayerPerceptron.getBias() << endl;
     
     return 0;
 }

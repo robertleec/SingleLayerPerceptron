@@ -30,20 +30,17 @@ namespace Perceptron {
             return vector<WeightType>(this->weightVector);
         }
         
-        inline const vector<BiasType> getBiasVector() {
-            return vector<BiasType>(this->biasVector);
-        }
+        BiasType getBias();
         
     private:
         
         LearningRateType learningRate;
         
         vector<WeightType> weightVector;
-        vector<BiasType> biasVector;
+        BiasType bias;
         
         void updateParameters(const vector<FeatureType>& featureVector, bool outputCategory);
         void resetWeightVector(size_t size);
-        void resetBiasVector(size_t size);
     };
 
 }
