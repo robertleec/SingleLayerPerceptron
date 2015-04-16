@@ -30,7 +30,7 @@ namespace Perceptron {
         swap(this->outputCategoriesVector, other.outputCategoriesVector);
     }
     
-    void TrainData::addFeatures(vector<FeatureType>& features, bool outputCategory) {
+    void TrainData::addFeatures(vector<FeatureType>& features, CATEGORY_TYPE outputCategory) {
         (this->featuresVector).push_back(features);
         (this->outputCategoriesVector).push_back(outputCategory);
         increaseNumberByOne();

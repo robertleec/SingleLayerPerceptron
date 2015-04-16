@@ -11,19 +11,19 @@ int main(int argc, char *argv[]) {
     
     FeatureType array1[] = {-0.5, -0.5};
     vector<FeatureType> vector1(array1, array1 + 2);
-    trainData.addFeatures(vector1, true);
+    trainData.addFeatures(vector1, CATEGORY_TYPE_POSITIVE);
     
-    FeatureType array2[] = {-0.5, -0.5};
+    FeatureType array2[] = {-0.5, 0.5};
     vector<FeatureType> vector2(array2, array2 + 2);
-    trainData.addFeatures(vector2, true);
+    trainData.addFeatures(vector2, CATEGORY_TYPE_POSITIVE);
     
-    FeatureType array3[] = {-0.5, -0.5};
+    FeatureType array3[] = {0.5, -0.5};
     vector<FeatureType> vector3(array3, array3 + 2);
-    trainData.addFeatures(vector3, true);
+    trainData.addFeatures(vector3, CATEGORY_TYPE_POSITIVE);
     
-    FeatureType array4[] = {-0.5, -0.5};
+    FeatureType array4[] = {0.5, 0.5};
     vector<FeatureType> vector4(array4, array4 + 2);
-    trainData.addFeatures(vector4, true);
+    trainData.addFeatures(vector4, CATEGORY_TYPE_NEGATIVE);
     
     Perceptron::SingleLayerPerceptron singleLayerPerceptron(0.3);
     

@@ -20,22 +20,22 @@ namespace Perceptron {
         
         void swap(TrainData& other);
         
-        void addFeatures(vector<FeatureType>& features, bool outputCategory);
+        void addFeatures(vector<FeatureType>& features, CATEGORY_TYPE outputCategory);
         NumberType getDataNumber() const;
         
         inline const vector< vector<FeatureType> > getFeaturesVector() const {
             return vector< vector<FeatureType> >(this->featuresVector);
         }
         
-        inline const vector<bool> getOutputCategoriesVector() const {
-            return vector<bool>(this->outputCategoriesVector);
+        inline const vector<CATEGORY_TYPE> getOutputCategoriesVector() const {
+            return vector<CATEGORY_TYPE>(this->outputCategoriesVector);
         }
         
     private:
         
         NumberType number;
         vector<vector<FeatureType> > featuresVector;
-        vector<bool> outputCategoriesVector;
+        vector<CATEGORY_TYPE> outputCategoriesVector;
         
         void increaseNumberByOne();
     };

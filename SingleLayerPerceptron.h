@@ -24,7 +24,7 @@ namespace Perceptron {
         void swap(SingleLayerPerceptron& other);
         
         void learn(const TrainData& trainData);
-        bool getClassifier(const vector<FeatureType>& features);
+        CATEGORY_TYPE getClassifier(const vector<FeatureType>& features);
         
         inline const vector<WeightType> getWeightVector() {
             return vector<WeightType>(this->weightVector);
@@ -39,7 +39,7 @@ namespace Perceptron {
         vector<WeightType> weightVector;
         BiasType bias;
         
-        void updateParameters(const vector<FeatureType>& featureVector, bool outputCategory);
+        void updateParameters(const vector<FeatureType>& featureVector, CATEGORY_TYPE outputCategory);
         void resetWeightVector(size_t size);
     };
 

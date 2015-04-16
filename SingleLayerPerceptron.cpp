@@ -43,10 +43,10 @@ namespace Perceptron {
         bool isLearingFinished = false;
         
         vector< vector<FeatureType> > featuresVector = trainData.getFeaturesVector();
-        vector<bool> outputCategoriesVector = trainData.getOutputCategoriesVector();
+        vector<CATEGORY_TYPE> outputCategoriesVector = trainData.getOutputCategoriesVector();
         
         vector< vector<FeatureType> >::iterator featuresIterator;
-        vector<bool>::iterator outputCategoryIterator;
+        vector<CATEGORY_TYPE>::iterator outputCategoryIterator;
         
         while (isLearingFinished == false) {
             
@@ -63,7 +63,7 @@ namespace Perceptron {
         }
     }
     
-    void SingleLayerPerceptron::updateParameters(const vector<FeatureType>& featureVector, bool outputCategory) {
+    void SingleLayerPerceptron::updateParameters(const vector<FeatureType>& featureVector, CATEGORY_TYPE outputCategory) {
         
         if ((this->weightVector).size() != featureVector.size()) {
             this->resetWeightVector(featureVector.size());
@@ -74,7 +74,7 @@ namespace Perceptron {
         
         for (featureIterator = featureVector.begin(), weightIterator = (this->weightVector).begin(); featureIterator != featureVector.end() && weightIterator != (this->weightVector).end(); ++featureIterator, ++weightIterator) {
             
-            if (outputCategory == true) {
+            if (outputCategory == CATEGORY_TYPE_POSITIVE) {
                 *weightIterator += (*featureIterator) * (1) * (this->learningRate);
                 this->bias += (1) * (this->learningRate);
             } else {
@@ -88,7 +88,7 @@ namespace Perceptron {
         this->weightVector = vector<WeightType>(size);
     }
     
-    bool SingleLayerPerceptron::getClassifier(const vector<FeatureType>& features) {
+    CATEGORY_TYPE SingleLayerPerceptron::getClassifier(const vector<FeatureType>& features) {
         CategoryValueType categoryValue = 0;
         
         vector<FeatureType>::const_iterator featureIterator;
@@ -102,10 +102,10 @@ namespace Perceptron {
         categoryValue += this->bias;
         
         if (categoryValue > 0) {
-            return true;
+            return CATEGORY_TYPE_POSITIVE;
         }
         
-        return false;
+        return CATEGORY_TYPE_NEGATIVE;
     }
     
     BiasType SingleLayerPerceptron::getBias() {
